@@ -4,11 +4,7 @@ namespace AdventOfCodePuzzles;
 
 public abstract class BenchmarkableBase : AdventBase
 {
-    public object BenchmarkOne() => InternalOptimizedPart1();
-
-    protected abstract object InternalOptimizedPart1();
+    public virtual object OptimizedPartOne() => InternalPart1();
     
-    public object BenchmarkTwo() => InternalOptimizedPart2();
-    
-    protected abstract object InternalOptimizedPart2();
+    public virtual object OptimizedPartTwo() => InternalPart2();
 }

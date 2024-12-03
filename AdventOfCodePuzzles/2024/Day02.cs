@@ -1,6 +1,4 @@
-﻿using AdventOfCodeSupport;
-
-namespace AdventOfCodePuzzles._2024;
+﻿namespace AdventOfCodePuzzles._2024;
 
 internal sealed class Day02 : BenchmarkableBase
 {
@@ -51,8 +49,4 @@ internal sealed class Day02 : BenchmarkableBase
                 
         return deltas.All(x => Math.Abs(x) is < 4 and > 0) && (deltas.All(x => x > 0) || deltas.All(x => x < 0));
     }
-
-    protected override object InternalOptimizedPart1() => InternalPart1();
-
-    protected override object InternalOptimizedPart2() => InternalPart2();
 }

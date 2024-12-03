@@ -1,9 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using AdventOfCodeSupport;
 
 namespace AdventOfCodePuzzles._2024;
-
 
 internal sealed class Day01 : BenchmarkableBase
 {
@@ -19,28 +17,6 @@ internal sealed class Day01 : BenchmarkableBase
             .Select(x => x.Split("  "))
             .Select(x => new Pair(uint.Parse(x[0]), uint.Parse(x[1])))
             .ToArray();
-    }
-
-    protected override object InternalOptimizedPart1()
-    {
-        var leftOrdered = _pairs
-            .Select(x => x.Left)
-            .Order()
-            .Zip(_pairs.Select(x => x.Right).Order())
-            .Sum(x => Math.Abs(x.First - x.Second));
-        
-        return leftOrdered;
-    }
-
-    protected override object InternalPart2()
-    {
-        var occurenceMap = _pairs
-            .CountBy(x => x.Right)
-            .ToDictionary();
-
-        return _pairs
-            .Select(x => x.Left * occurenceMap.GetValueOrDefault(x.Left, 0))
-            .Sum();
     }
 
     protected override object InternalPart1()
@@ -67,7 +43,29 @@ internal sealed class Day01 : BenchmarkableBase
         return sum;
     }
 
-    protected override object InternalOptimizedPart2()
+    public override object OptimizedPartOne()
+    {
+        var leftOrdered = _pairs
+            .Select(x => x.Left)
+            .Order()
+            .Zip(_pairs.Select(x => x.Right).Order())
+            .Sum(x => Math.Abs(x.First - x.Second));
+        
+        return leftOrdered;
+    }
+
+    protected override object InternalPart2()
+    {
+        var occurenceMap = _pairs
+            .CountBy(x => x.Right)
+            .ToDictionary();
+
+        return _pairs
+            .Select(x => x.Left * occurenceMap.GetValueOrDefault(x.Left, 0))
+            .Sum();
+    }
+
+    public override object OptimizedPartTwo()
     {
         var occurenceMap = new Dictionary<uint, uint>(1000);
         
