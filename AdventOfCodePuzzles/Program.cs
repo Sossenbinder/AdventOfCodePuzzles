@@ -11,4 +11,4 @@ today.Part1().Part2();
 
 //today.Benchmark();
 
-//BenchmarkRunner.Run<DayBenchmarker>();
+BenchmarkRunner.Run<DayBenchmarker>();

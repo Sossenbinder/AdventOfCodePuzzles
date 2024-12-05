@@ -6,11 +6,11 @@ namespace AdventOfCodePuzzles;
 [MemoryDiagnoser]
 public class DayBenchmarker
 {
-    private readonly Day03 _day;
+    private readonly Day05 _day;
 
     public DayBenchmarker()
     {
-        _day = new Day03();
+        _day = new Day05();
         _day.OnLoad();
     }
 
