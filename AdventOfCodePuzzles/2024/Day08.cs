@@ -113,44 +113,6 @@ internal sealed class Day08 : BenchmarkableBase
 
         }
     }
-    
-    private static (Vector2 closer, Vector2 farther) NormalizePair(Vector2 one, Vector2 two)
-    {
-        var distanceOne = Vector2.DistanceSquared(Vector2.Zero, one);
-        var distanceTwo = Vector2.DistanceSquared(Vector2.Zero, two);
-
-        return distanceOne <= distanceTwo ? (one, two) : (two, one);
-    }
-
-    private void Print(HashSet<Vector2> antinodes)
-    {
-        var antennas = _antennaMap
-            .Select(x => x.Value.Select(y => (y, x.Key)))
-            .SelectMany(x => x)
-            .ToDictionary(x => x.y, x => x.Key);
-        for (var y = 0; y < Input.Lines.Length; y++)
-        {
-            var line = Input.Lines[y];
-            for (var x = 0; x < line.Length; x++)
-            {
-                var point = new Vector2(x, y);
-                if (antennas.TryGetValue(point, out var item))
-                {
-                    Console.Write(item);
-                }
-                else if (antinodes.Contains(point))
-                {
-                    Console.Write('#');
-                } 
-                else
-                {
-                    Console.Write('.');
-                }
-            }
-            Console.WriteLine();
-        }
-    }
-
     private static List<(Vector2 Closer, Vector2 Farther)> MakePairs(List<Vector2> points)
     {
         return points.Select((x, i) => points.Skip(i + 1).Select(y =>
