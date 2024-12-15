@@ -168,9 +168,7 @@ internal sealed class Day12 : BenchmarkableBase
 
         foreach (var current in adjacent)
         {
-            if (previous == null ||
-                current.Direction != previous.Value.Direction ||
-                current.Direction switch
+            if (previous is null || current.Direction != previous.Value.Direction || current.Direction switch
                 {
                     Direction.Left => (current.Point.X, current.Point.Y) != (previous.Value.Point.X, previous.Value.Point.Y - 1),
                     Direction.Up => (current.Point.X, current.Point.Y) != (previous.Value.Point.X + 1, previous.Value.Point.Y),
