@@ -18,61 +18,23 @@ internal sealed class Day17 : BenchmarkableBase
     protected override object InternalPart2()
     {
         int[] rawInstructions = [2,4,1,5,7,5,0,3,4,1,1,6,5,5,3,0];
-        const int registerA = 47719761;
         
-        // for (var i = 2300000000; true; i++)
-        // {
-        //     if (i % 100_000_000 == 0)
-        //     {
-        //         Console.WriteLine(i);
-        //     }
-        //
-        //     if (SolveTwo(i, rawInstructions.Length, rawInstructions))
-        //     {
-        //         return i;
-        //     }
-        // }
-        
-        const int rangeCount = 8;
-        const long rangeSize = 999_999_999_999_999L / rangeCount;
-
-        var chunks = new List<(long Start, long End)>();
-        
-        for (var i = 0; i < rangeCount; i++)
+        for (var i = 0L; i < long.MaxValue; ++i)
         {
-            var start = i * rangeSize;
-            var end = (i == rangeCount - 1) ? long.MaxValue : (start + rangeSize - 1);
+            var result = Solve(i, rawInstructions.Length, rawInstructions).ToArray();
 
-            chunks.Add((start, end));
+            if (result.SequenceEqual(rawInstructions))
+            {
+                return i;
+            }
+
+            if (rawInstructions.TakeLast(result.Length).SequenceEqual(result))
+            {
+                i = i * 8 - 1;
+            }
         }
 
-        var cts = new CancellationTokenSource();
-
-        var result = 0L;
-        Parallel.ForEach(chunks, new ParallelOptions(){
-            CancellationToken = cts.Token,
-        },(range) =>
-        {
-            var counter = range.Start;
-            for (var i = range.Start; i < range.End; i++)
-            {        
-                if (counter % 100_000_000 == 0)
-                {
-                    Console.WriteLine(counter);
-                }
-                
-                if (SolveTwo(i, rawInstructions.Length, rawInstructions) && i != registerA)
-                {
-                    result = i;
-                    cts.Cancel();
-                }
-
-                counter++;
-            }
-        });
-
-        Console.WriteLine("Done");
-        return result;
+        return 0;
     }
     
     private static bool SolveTwo(long registerA, int instructionLength, int[] rawInstructions)
@@ -183,7 +145,7 @@ internal sealed class Day17 : BenchmarkableBase
             {
                 //adv
                 case 0:
-                    registerA = (int) (registerA / Math.Pow(2, comboOperand));
+                    registerA = (long) (registerA / Math.Pow(2, comboOperand));
                     break;
                 //bxl
                 case 1:
