@@ -1,4 +1,5 @@
 ﻿using AdventOfCodePuzzles;
+using AdventOfCodePuzzles._2025;
 using AdventOfCodeSupport;
 using BenchmarkDotNet.Running;
 
